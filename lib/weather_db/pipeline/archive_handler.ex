@@ -35,6 +35,8 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
       ["Time, Timezone, Bmp180 Temp, SHT31-d Temp, Humidity, Dewpoint, Pressure, Conditions, Unit_Id, Rainfall" | formatted_results]
 
     {:ok, date} = Timex.format(start, "%Y-%m-%d", :strftime)
+    {:ok, year} = Timex.format(start, "%Y", :strftime)
+    {:ok, month} = Timex.format(start, "%m", :strftime)
 
     path = @write_path <> "/" <> date <> ".csv"
 
@@ -51,7 +53,7 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
     {:ok, _result} =
       path |>
       S3.Upload.stream_file |>
-      S3.upload("personal-joxford", "weather/" <> date <> ".csv") |>
+      S3.upload("personal-joxford", "weather/#{year}/#{month}#{date}.csv") |>
       ExAws.request
 
     File.rm!(path)

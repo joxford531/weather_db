@@ -32,7 +32,7 @@ defmodule WeatherDb.MixProject do
       {:gen_stage, "~> 0.14"},
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
-      {:hackney, "~> 1.9"},
+      {:hackney, "~> 1.17"},
       {:sweet_xml, "~> 0.6"}
     ]
   end
