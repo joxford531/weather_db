@@ -3,6 +3,8 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
   use Timex
   alias ExAws.S3
 
+  @write_path = "./persist"
+
   def start_link(_args) do
     GenStage.start_link(__MODULE__, [], name: __MODULE__)
   end
@@ -34,13 +36,13 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
 
     {:ok, date} = Timex.format(start, "%Y-%m-%d", :strftime)
 
-    path = "./persist/" <> date
+    path = @write_path <> date <> ".csv"
 
-    if File.exists?(path) == false do
-      File.mkdir!(path)
+    if File.exists?(@write_path) == false do
+      File.mkdir!(@write_path)
     end
 
-    File.write!(path <> ".csv", Enum.join(formatted_results, "\r\n"), [:utf8])
+    File.write!(path, Enum.join(formatted_results, "\r\n"), [:utf8])
 
     upload_s3(path, date)
   end
