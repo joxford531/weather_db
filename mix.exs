@@ -28,7 +28,7 @@ defmodule WeatherDb.MixProject do
       {:postgrex, "~> 0.14.1"},
       {:quantum, "~> 2.3"},
       {:timex, "~> 3.6"},
-      {:httpoison, "~> 1.5"},
+      {:httpoison, "~> 1.8"},
       {:gen_stage, "~> 0.14"},
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
