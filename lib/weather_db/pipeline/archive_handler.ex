@@ -36,7 +36,7 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
 
     {:ok, date} = Timex.format(start, "%Y-%m-%d", :strftime)
 
-    path = @write_path <> date <> ".csv"
+    path = @write_path <> "/" date <> ".csv"
 
     if File.exists?(@write_path) == false do
       File.mkdir!(@write_path)
