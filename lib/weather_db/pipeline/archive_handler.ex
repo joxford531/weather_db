@@ -3,7 +3,7 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
   use Timex
   alias ExAws.S3
 
-  @write_path = "./persist"
+  @write_path "./persist"
 
   def start_link(_args) do
     GenStage.start_link(__MODULE__, [], name: __MODULE__)
