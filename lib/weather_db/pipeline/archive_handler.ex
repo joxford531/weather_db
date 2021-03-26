@@ -34,9 +34,13 @@ defmodule WeatherDb.Pipeline.ArchiveHandler do
 
     {:ok, date} = Timex.format(start, "%Y-%m-%d", :strftime)
 
-    path = "./persist/" <> date <> ".csv"
+    path = "./persist/" <> date
 
-    File.write!(path, Enum.join(formatted_results, "\r\n"), [:utf8])
+    if File.exists?(path) == false do
+      File.mkdir!(path)
+    end
+
+    File.write!(path <> ".csv", Enum.join(formatted_results, "\r\n"), [:utf8])
 
     upload_s3(path, date)
   end
